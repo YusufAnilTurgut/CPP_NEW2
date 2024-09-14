@@ -94,3 +94,29 @@ void Bureaucrat::decrement(void)
 	currentGrade++;
 	this->setGrade(currentGrade);
 }
+
+void Bureaucrat::signAForm(AForm &AForm)
+{
+    if (AForm.getSign() == false)
+    {
+        try
+        {
+            AForm.beSigned(*this);   
+			std::cout << this->getName() << " signed " << AForm.getName() << std::endl; 
+        }
+		catch(const std::exception& e)
+		{
+			std::cout << e.what() << std::endl;
+		}
+     
+    }
+    else
+        std::cout  << this->getName() << " couldn't sign " << AForm.getName() << " because AForm already signed!" << std::endl;
+}
+
+void    Bureaucrat::executeForm(AForm const &AForm)
+{
+
+    AForm.execute(*this);
+    std::cout << this->getName() << " executed " << AForm.getName() << std::endl;
+}

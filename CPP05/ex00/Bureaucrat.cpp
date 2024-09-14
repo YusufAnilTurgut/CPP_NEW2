@@ -5,28 +5,22 @@
 
 Bureaucrat::Bureaucrat() : name("Default Name")
 {
-	this->grade = 0;
+	this->grade = 150;
 }
 
 Bureaucrat::Bureaucrat(const std::string& name, const int& grade) : name(name)
 {
-	
-	try {
-        if (grade > 150) 
-        {
-            throw GradeTooHighException();
-		}
-		else if (grade < 1)
-		{
-            throw GradeTooLowException();
-		}
 
-		this->grade = grade;
-    }
-    catch (const std::exception& e) {
-        std::cout << e.what() << std::endl;
-		this->grade = 150;
-    }
+    if (grade < 1) 
+    {
+        throw GradeTooHighException();
+	}
+	else if (grade > 150)
+	{
+        throw GradeTooLowException();
+	}
+
+	this->grade = grade;
 }
 
 
@@ -49,6 +43,13 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat& rhs)
 	return *this;
 }
 
+
+std::ostream& operator << (std::ostream& os, const Bureaucrat &arg)
+{
+    os << arg.getName() << ", bureaucrat grade " << arg.getGrade() << ".";
+    return os;
+}
+
 const std::string& 	Bureaucrat::getName() const
 {
 	return this->name;
@@ -63,19 +64,22 @@ void			Bureaucrat::setGrade(const int &grade)
 {
 	try
 	{
-		if (grade > 150)
+		if (grade < 1)
+		{
+			this->grade = 1;
 			throw GradeTooHighException();
-		else if (grade < 1)
+		}
+		else if (grade > 150)
+		{
+			this->grade = 150;
 			throw GradeTooLowException();
-
-		this->grade = grade;
+		}
 	}
 	catch(const std::exception& e)
 	{
 		std::cout << e.what() << std::endl;
-		this->grade = 150;
 	}
-	
+	this->grade = grade;	
 }
 
 const char* Bureaucrat::GradeTooHighException::what() const throw()
@@ -86,5 +90,19 @@ const char* Bureaucrat::GradeTooHighException::what() const throw()
 
 const char* Bureaucrat::GradeTooLowException::what() const throw()
 {
-     return "Grade is too low!, frade must be between 1 < 150";
+     return "Grade is too low!, grade must be between 1 < 150";
+}
+
+void Bureaucrat::increment(void)
+{
+	int currentGrade = this->getGrade();
+	currentGrade--;
+	this->setGrade(currentGrade);
+}
+
+void Bureaucrat::decrement(void)
+{
+	int currentGrade = this->getGrade();
+	currentGrade++;
+	this->setGrade(currentGrade);
 }

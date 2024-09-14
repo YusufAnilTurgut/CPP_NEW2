@@ -62,11 +62,23 @@ int 	Bureaucrat::getGrade() const
 
 void			Bureaucrat::setGrade(const int &grade)
 {
-	if (grade < 1)
-		throw GradeTooHighException();
-	else if (grade > 150)
-		throw GradeTooLowException();
-
+	try
+	{
+		if (grade < 1)
+		{
+			this->grade = 1;
+			throw GradeTooHighException();
+		}
+		else if (grade > 150)
+		{
+			this->grade = 150;
+			throw GradeTooLowException();
+		}
+	}
+	catch(const std::exception& e)
+	{
+		std::cout << e.what() << std::endl;
+	}
 	this->grade = grade;	
 }
 
@@ -93,4 +105,23 @@ void Bureaucrat::decrement(void)
 	int currentGrade = this->getGrade();
 	currentGrade++;
 	this->setGrade(currentGrade);
+}
+
+void Bureaucrat::signForm(Form &form)
+{
+    if (form.getSign() == false)
+    {
+        try
+        {
+            form.beSigned(*this);   
+			std::cout << this->getName() << " signed " << form.getName() << std::endl; 
+        }
+		catch(const std::exception& e)
+		{
+			std::cout << e.what() << std::endl;
+		}
+     
+    }
+    else
+        std::cout  << this->getName() << " couldn't sign " << form.getName() << " because form already signed!" << std::endl;
 }
