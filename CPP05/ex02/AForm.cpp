@@ -89,6 +89,7 @@ const char *AForm::FormNotSigned::what() const throw()
 
 bool    AForm::executer_control(const Bureaucrat &executor) const
 {
+
     if (this->getSign() == false)
         throw FormNotSigned();
     else if (executor.getGrade() > this->getExecGrade())

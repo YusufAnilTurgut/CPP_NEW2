@@ -10,8 +10,8 @@ int main()
 	{
 	////////////////////////////////////////////////////
 	
-	// Bureaucrat *b3 = new Bureaucrat("b3", 0); // 151 && 0
-	// std::cout << *b3 << std::endl;
+	Bureaucrat *b3 = new Bureaucrat("b3", 0); // 151 && 0
+	 std::cout << *b3 << std::endl;
 	
 	Bureaucrat *b1 = new Bureaucrat();
 	std::cout << "b1 name : " << b1->getName() << std::endl;
@@ -61,6 +61,8 @@ int main()
 	delete b1;
 	delete b2;
 	delete b6;
+	delete b7;
+	delete b5;
 	std::cout << "End Of Code" << std::endl;
 	}
 	catch(const std::exception& e)

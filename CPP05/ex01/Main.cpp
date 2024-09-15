@@ -25,17 +25,16 @@ int main()
 		Form *f3 = new Form("f3", 5, 5);
 		std::cout << *f3 << std::endl;
 
-
-		
-		std::cout << *f3 << std::endl;
+		Form *f4 = new Form(*f3);
+		std::cout << *f4 << std::endl;
 
 		Bureaucrat *b8 = new Bureaucrat("b8", 6);
-		std::cout << "b8 name : " << b8->getName() << std::endl;
-		std::cout << "b8 grade : " << b8->getGrade() << std::endl;
+		std::cout << *b8 << std::endl;
 		b8->signForm(*f3);
  		//f3->beSigned(*b8);
-		// b8->signForm(*f2);
-
+		b8->signForm(*f2);
+		b8->signForm(*f2);
+		std::cout << *f2 << std::endl;
 		std::cout << "End of Code" << std::endl;
 		delete b1;
 		delete b2;
@@ -44,6 +43,7 @@ int main()
 		delete f1;
 		delete f2; 
 		delete f3;
+		delete f4;
 	}
 	catch(const std::exception& e)
 	{
