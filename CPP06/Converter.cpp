@@ -79,6 +79,7 @@ int is_str(std::string str) //If return 1 is str
 {
     int i = -1;
     int fcounter = 0;
+	int dotcounter = 0;
     int minus = 0;
 
     if(std::isalpha(str[0]) && str.length() > 1)
@@ -95,10 +96,12 @@ int is_str(std::string str) //If return 1 is str
 			fcounter++;
 		if (str[i] == '-')
 			minus++;
+		if (str[i] == '.')
+			dotcounter++;
 		if (str[i] == '.' && (!std::isdigit(str[i + 1]) || (i && !std::isdigit(str[i - 1]))))
 			return (1);
     }
-    if (fcounter > 1 || minus > 1)
+    if (fcounter > 1 || minus > 1 || dotcounter > 1)
 		return (1);
     return (0);
 }
@@ -220,7 +223,7 @@ void	ScalarConverter::convert(std::string str)
 	}
 	if (str == "0.0f" || str == "0.0")
 	{
-		int_to(0);
+		int_to(0.0);
 		return ;
 	}
 	to_digits(str);
