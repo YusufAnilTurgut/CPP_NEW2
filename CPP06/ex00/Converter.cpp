@@ -115,6 +115,11 @@ void	to_char(std::string str)
 	std::cout << "Double: " << static_cast<double>(c)<< ".0" << std::endl;
 }
 
+bool isInteger(double num) {
+    int intPart = static_cast<int>(num);
+    
+    return (num == intPart);
+}
 void	float_to(float f)
 {
 	if ((static_cast<char>(f) >= 32 && static_cast<char>(f) <= 126)) 
@@ -122,8 +127,19 @@ void	float_to(float f)
 	else
 		std::cout << "Char: " << "not displayble" << std::endl;
 	std::cout << "Int: " << static_cast<int>(f) << std::endl;
-	std::cout << "Float: " << f << "f" << std::endl;
-	std::cout << "Double: " << static_cast<double>(f) << std::endl;
+
+	if (isInteger(f) == true)
+	{
+		std::cout << "Float: " << f  << ".0f" <<  std::endl;
+		std::cout << "Double: " << static_cast<double>(f)  << ".0" << std::endl;
+	}
+	else
+	{
+		std::cout << "Float: " << f << "f" << std::endl;
+		std::cout << "Double: " << static_cast<double>(f) << std::endl;
+	}
+		
+	
 }
 
 void	double_to(double d)
@@ -133,8 +149,17 @@ void	double_to(double d)
 	else
 		std::cout << "Char: " << "not displayble" << std::endl;
 	std::cout << "Int: " << static_cast<int>(d) << std::endl;
-	std::cout << "Float: " << static_cast<float>(d) << "f" << std::endl;
-	std::cout << "Double: " << (d) << std::endl;
+
+	if (isInteger(d) == true)
+	{
+		std::cout << "Float: " << static_cast<float>(d) << ".0f" << std::endl;
+		std::cout << "Double: " << (d) << ".0" <<  std::endl;
+	}
+	else
+	{
+		std::cout << "Float: " << static_cast<float>(d) << "f" << std::endl;
+		std::cout << "Double: " << (d) << std::endl;
+	}
 }
 
 void	int_to(int i)
@@ -184,13 +209,13 @@ void	to_digits(std::string str)
 
 	if (check_dot(str) && check_f(str))
 	{
-		std::cout <<"str : " <<  str << std::endl;
 		f = stringToFloat(str);
 		float_to(f);
 	}
 	else if (check_dot(str))
 	{
 		d = stringToDouble(str);
+		std::cout << "D : "<< d  << std::endl;
 		double_to(d);
 	}
 	else
