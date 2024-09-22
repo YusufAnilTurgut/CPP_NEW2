@@ -1,19 +1,28 @@
-NAME	= main
-CC		= c++
-FLAGS	= -Wall -Wextra -Werror -std=c++98
-RM		= rm -rf
+SRCS = main.cpp Classes.cpp
+NAME = main
 
-.PHONY: all clean re
+OBJS = $(SRCS:.cpp=.o)
 
-all: $(NAME)
+CC = c++
 
-$(NAME): 
-	@ $(CC) $(FLAGS) main.cpp Classes.cpp -o $(NAME)
+RM = rm -rf
 
-clean:
-	@$(RM) $(NAME)
+FLAGS = -Wall -Wextra -Werror -std=c++98
 
-fclean:
-	@$(RM) $(NAME)
+all : $(NAME)
 
-re: clean all
+$(NAME) :	$(OBJS)
+				$(CC) $(FLAGS) $(OBJS) -o $(NAME)
+
+.cpp.o :
+	@$(CC) $(FLAGS) -c $< -o $(<:.cpp=.o)
+
+clean :
+				$(RM) $(OBJS)
+
+fclean :		clean
+				$(RM) $(NAME)
+
+re : fclean all
+
+.PHONY = all clean fclean re

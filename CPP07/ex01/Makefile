@@ -1,4 +1,4 @@
-SRCS = main.cpp Converter.cpp
+SRCS = main.cpp  
 NAME = main
 
 OBJS = $(SRCS:.cpp=.o)
