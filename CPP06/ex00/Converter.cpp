@@ -149,14 +149,20 @@ void	int_to(int i)
 }
 
 float stringToFloat(const std::string &str) {
-    std::stringstream ss(str);
+
+	std::string  newStr = str;
+	    if (newStr.back() == 'f') {
+        newStr.pop_back(); 
+    }
+    std::stringstream ss(newStr);
     float result;
     ss >> result;
     return result;
 }
 
 double stringToDouble(const std::string &str) {
-    std::stringstream ss(str);
+    
+	std::stringstream ss(str);
     double result;
     ss >> result;
     return result;
@@ -171,12 +177,14 @@ int stringToInt(const std::string &str) {
 
 void	to_digits(std::string str)
 {
+
 	float	f;
 	int		i;
 	double	d;
 
 	if (check_dot(str) && check_f(str))
 	{
+		std::cout <<"str : " <<  str << std::endl;
 		f = stringToFloat(str);
 		float_to(f);
 	}
