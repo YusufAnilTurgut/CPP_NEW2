@@ -33,6 +33,35 @@ BitcoinExchange &BitcoinExchange::operator = (const BitcoinExchange &copy)
 	data.close();
  }
 
+int stringToInt(const std::string &str) {
+    std::stringstream ss(str);
+    int result;
+
+    ss >> std::ws;  
+    ss >> result;
+
+    if (ss.fail() || !ss.eof()) {
+        throw std::invalid_argument("Invalid integer input: " + str);
+    }
+
+    return result;
+}
+
+float stringToFloat(const std::string &str) {
+    std::stringstream ss(str);
+    float result;
+
+    ss >> std::ws;  
+    ss >> result;
+
+    if (ss.fail() || !ss.eof()) {
+        throw std::invalid_argument("Invalid float input: " + str);
+    }
+
+    return result;
+}
+
+
 void    BitcoinExchange::readInputAndExchange(void)
 {
 	std::ifstream inputFile(this->inputFileName);
@@ -55,10 +84,10 @@ void    BitcoinExchange::readInputAndExchange(void)
             {
                 try
                 {
-                    year = std::stoi(line.substr(0,4));
-                    month = std::stoi(line.substr(5, 2));
-                    day = std::stoi(line.substr(8, 2));
-                    value = std::stof(line.substr(13));
+                    year = stringToInt(line.substr(0,4));
+                    month = stringToInt(line.substr(5, 2));
+                    day = stringToInt(line.substr(8, 2));
+                    value = stringToFloat(line.substr(13));
                 }
                 catch (std::exception &e)
                 {
